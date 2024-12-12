@@ -57,9 +57,10 @@ Perform binary classification on the dataset `predictive/data/applicants_loan_ap
 Start by establishing a predictive baseline: a dummy classifier that always predicts the majority class. Evaluate the dummy classifier with [sklearn.metrics.classification_report](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html) provided by scikit. Analogously, train a RandomForestClassifier and compare it to the baseline with the same `classification_report()`.
 
 Here's an example output of the classification report for both models:
+
 ![clsreportexample](assets/example_classification_report.png)
 
-Now implement `predictive/Dockerfile` that specifes a custom container image based on `python:3.10-slim` that installs needed libraries and runs the `model.py` script from above on the provided data (use an appropriate docker mechanism to use the csv data file from the host).
+Now implement `predictive/Dockerfile` that specifes a custom container image (tag it `loanprediction`) based on `python:3.10-slim` that installs needed libraries and runs the `model.py` script from above on the provided data (use an appropriate docker mechanism to use the csv data file from the host).
 
 #### TODO commands for buidling and running the custom docker container
 ```bash
@@ -75,7 +76,7 @@ docker run -v ./data:/model/data loanprediction
     - fits a dummy majority classifier as a predictive baseline ([sklearn.dummy.DummyClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.dummy.DummyClassifier.html) and [sklearn dummy estimators user guide](https://scikit-learn.org/stable/modules/model_evaluation.html#dummy-estimators)).
     - fits a random forest classifier ([sklearn.ensemble.RandomForestClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html))
     - compares performance of both with [sklearn.metrics.classification_report](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html) on the test set (just print the classification_report() of each classifier).
-- implemented `predictive/Dockerfile` that creates a standalone container image to run `model.py`
+- implemented `predictive/Dockerfile` that builds a standalone container image to run `model.py`. Tag the image as `loanprediction`
 - written commands on how to build the container image from the `Dockerfile` and run it with the `applicants_loan_applications.csv` as the dataset.
 
 ### 4. Double-check your work & submit
