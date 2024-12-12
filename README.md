@@ -53,7 +53,7 @@ Perform binary classification on the dataset `predictive/data/applicants_loan_ap
 
 Start by establishing a predictive baseline: a dummy classifier that always predicts the majority class. Evaluate the dummy classifier with the `classification_report()` provided by scikit. Finally, train a RandomForestClassifier and compare it to the baseline with the same `classification_report()`.
 
-Now implement `predictive/Dockerfile` that builds a container image based on `python:3.10-slim` that runs the `model.py` script from above on the provided data.
+Now implement `predictive/Dockerfile` that builds a container image based on `python:3.10-slim` that runs the `model.py` script from above on the provided data (use an appropriate docker mechanism to use the csv file from the host).
 
 #### TODO commands for buidling and running the custom docker container
 ```bash
