@@ -1,20 +1,18 @@
-version: '3.9'
-
 services:
-  db:
-    image: postgres
+  dbserver:
+    image: postgres:17.2
     restart: always
     environment:
-      POSTGRES_PASSWORD: passpass
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ulfriids
     ports:
       - 5432:5432
     volumes:
       - ./data/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+      - ./pgdata:/var/lib/postgresql/data
 
-  adminer:
-    depends_on:
-      - db
-    image: adminer
+  dbgui:
+    image: adminer:latest
     restart: always
     ports:
-      - 8080:8080
+      - 6836:8080
