@@ -1,6 +1,6 @@
 ## Docker and databases hands-on exam
 
-Your goal is to solve the following tasks.
+Your goal is to solve the following tasks:
 
 ### 1. Setup the Docker compose stack
 Implement the following services in a docker-compose.yml:
@@ -8,7 +8,7 @@ Implement the following services in a docker-compose.yml:
     - Image: `postgres:17.2`
     - Service name: `dbserver`
     - Set the default password to `ulfrids` (the default username is `postgres`)
-    - Find a way to initialize the database with the `dump.sql` file provided in the `data` folder of this repository.
+    - Find a way to initialize the database with the `dump.sql` file provided in the `init` folder of this repository.
     - Map the default postgres container port to port `5432` on the host.
     - Use an appropriate mechanism of persisting the data in the database after the container has been removed - map Postgres' data folder in the container to ./pgdata on the host (if possible, otherwise explain why you cannot map it and use a regular Docker volume).
 - [adminer](https://hub.docker.com/_/adminer)
@@ -19,28 +19,31 @@ Implement the following services in a docker-compose.yml:
 After your docker compose stack is up and running take a screenshot of it's web interface, with entered login credentials and database url.
 
 <!-- ![emptyui](assets/empty_adminer.png) -->
-### TODO: screenshot of used credentials to log in
+#### TODO: screenshot of used credentials to log in
 ![filledui](assets/filled_adminer.png)
 
 The database should now have your data.
 ![dboverviewadminer](assets/adminer_view.png)
 
-### TODO: command(s) for running the docker compose stack:
+#### TODO: command(s) for running the docker compose stack:
 ```bash
 docker compose up
 ```
 
-### The expected results of this phase are:
+#### The expected results of this phase are:
 - a `docker-compose.yml` file in the root of this repository implementing the stack above.
 - a screenshot of the adminer web interface with filled in fields to connect to the database
 - a screenshot of the adminer web interface when logged-in, showing the two tables (`loan_applications` and `applicants`)
 - the command(s) needed to run the docker compose stack
 
 ### 2. SQL
-Follow the instructions in `sql.ipynb` to implement the solutions.
+Follow the instructions in `sql.ipynb` to implement the solutions. 
 
-### The expected results of this phase are:
+Provide the commands to setup the python environment for running the notebook (requirements.txt or environment.yml)
+
+#### The expected results of this phase are:
 - implemented everything required in `sql.ipynb`
+- `requirements.txt` or `environment.yml` specifying the python environment (libraries) needed for running the notebook.
 - saved `applicants_loan_applications.csv` in `predictive/data` folder
 
 ### 3. Predictive modeling
@@ -48,23 +51,26 @@ Your goal is to predict if a bank should approve a loan application or not.
 
 Perform binary classification on the dataset `predictive/data/applicants_loan_applications.csv` you saved in the `sql.ipynb` notebook. The feature columns and target column are already specified in `predictive/model.py`.
 
-You shall start by establishing a baseline: a dummy classifier that always predicts the majority class. Evaluate the dummy classifier with the `classification_report()` provided by scikit. Finally, train a RandomForestClassifier and compare it to the baseline with the same `classification_report()`.
+Start by establishing a predictive baseline: a dummy classifier that always predicts the majority class. Evaluate the dummy classifier with the `classification_report()` provided by scikit. Finally, train a RandomForestClassifier and compare it to the baseline with the same `classification_report()`.
 
-Now implement `predictive/Dockerfile` that builds a container image based on `python:3.10-slim` that installs the required libraries from `predictive/requirements.txt`, and runs the `model.py` script from above.
+Now implement `predictive/Dockerfile` that builds a container image based on `python:3.10-slim` that runs the `model.py` script from above on the provided data.
 
-### TODO commands for buidling and running the custom docker container
+#### TODO commands for buidling and running the custom docker container
 ```bash
 cd predictive
 docker build -t loanprediction .
 docker run -v ./data:/model/data loanprediction
 ```
 
-### The expected results of this phase are:
+#### The expected results of this phase are:
 - implemented `predictive/model.py` that:
     - reads the `predictive/data/applicants_loan_applications.csv` from the previous task
     - splits it into a train and test set with [sklearn.model_selection.train_test_split](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html).
     - fits a dummy majority classifier as a predictive baseline ([sklearn.dummy.DummyClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.dummy.DummyClassifier.html) and [sklearn dummy estimators user guide](https://scikit-learn.org/stable/modules/model_evaluation.html#dummy-estimators)).
     - fits a random forest classifier ([sklearn.ensemble.RandomForestClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html))
     - compares performance of both with [sklearn.metrics.classification_report](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html) on the test set - just print the classification_report() of each classifier.
-- implemented `predictive/Dockerfile` that creates a stadalone container image to run `model.py`
-- written commands on how to build the container image from the `Dockerfile` and run the container
+- implemented `predictive/Dockerfile` that creates a standalone container image to run `model.py`
+- written commands on how to build the container image from the `Dockerfile` and run it with the `applicants_loan_applications.csv` as the dataset.
+
+### 4. Double-check your work & submit
+Go through the instructions again and make sure you implemented everything as requested. Save all the files, include them into git (double check if everything needed is included) and push your work to the remote repository.
