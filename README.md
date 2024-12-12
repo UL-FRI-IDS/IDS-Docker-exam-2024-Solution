@@ -1,6 +1,6 @@
 ## Docker and databases hands-on exam
 
-Your goal is to solve the following tasks:
+Your goal is to solve the following tasks.
 
 ### 1. Setup the Docker compose stack
 Implement the following services in a docker-compose.yml:
@@ -18,21 +18,53 @@ Implement the following services in a docker-compose.yml:
 
 After your docker compose stack is up and running take a screenshot of it's web interface, with entered login credentials and database url.
 
-![emptyui](assets/empty_adminer.png)
+<!-- ![emptyui](assets/empty_adminer.png) -->
 ### TODO: screenshot of used credentials to log in
-<!-- ![filledui](assets/filled_adminer.png) -->
+![filledui](assets/filled_adminer.png)
 
 The database should now have your data.
 ![dboverviewadminer](assets/adminer_view.png)
 
+### TODO: command(s) for running the docker compose stack:
+```bash
+docker compose up
+```
+
+### The expected results of this phase are:
+- a `docker-compose.yml` file in the root of this repository implementing the stack above.
+- a screenshot of the adminer web interface with filled in fields to connect to the database
+- a screenshot of the adminer web interface when logged-in, showing the two tables (`loan_applications` and `applicants`)
+- the command(s) needed to run the docker compose stack
+
 ### 2. SQL
-Implement the `task.ipynb` notebook.
+Follow the instructions in `sql.ipynb` to implement the solutions.
+
+### The expected results of this phase are:
+- implemented everything required in `sql.ipynb`
+- saved `applicants_loan_applications.csv` in `predictive/data` folder
 
 ### 3. Predictive modeling
-TODO
+Your goal is to predict if a bank should approve a loan application or not.
 
-### 4. Make your work reproducible
-- requirements.txt
-- seeding randomness
-- commands for running the docker stack
-TODO...
+Perform binary classification on the dataset `predictive/data/applicants_loan_applications.csv` you saved in the `sql.ipynb` notebook. The feature columns and target column are already specified in `predictive/model.py`.
+
+You shall start by establishing a baseline: a dummy classifier that always predicts the majority class. Evaluate the dummy classifier with the `classification_report()` provided by scikit. Finally, train a RandomForestClassifier and compare it to the baseline with the same `classification_report()`.
+
+Now implement `predictive/Dockerfile` that builds a container image based on `python:3.10-slim` that installs the required libraries from `predictive/requirements.txt`, and runs the `model.py` script from above.
+
+### TODO commands for buidling and running the custom docker container
+```bash
+cd predictive
+docker build -t loanprediction .
+docker run -v ./data:/model/data loanprediction
+```
+
+### The expected results of this phase are:
+- implemented `predictive/model.py` that:
+    - reads the `predictive/data/applicants_loan_applications.csv` from the previous task
+    - splits it into a train and test set with [sklearn.model_selection.train_test_split](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html).
+    - fits a dummy majority classifier as a predictive baseline ([sklearn.dummy.DummyClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.dummy.DummyClassifier.html) and [sklearn dummy estimators user guide](https://scikit-learn.org/stable/modules/model_evaluation.html#dummy-estimators)).
+    - fits a random forest classifier ([sklearn.ensemble.RandomForestClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html))
+    - compares performance of both with [sklearn.metrics.classification_report](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html) on the test set - just print the classification_report() of each classifier.
+- implemented `predictive/Dockerfile` that creates a stadalone container image to run `model.py`
+- written commands on how to build the container image from the `Dockerfile` and run the container
