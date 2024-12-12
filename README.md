@@ -29,6 +29,7 @@ The database should now have your data.
 Implement the `task.ipynb` notebook.
 
 ### 3. Predictive modeling
+TODO
 
 ### 4. Make your work reproducible
 - requirements.txt
