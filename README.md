@@ -9,6 +9,7 @@ Implement the following services in a docker-compose.yml:
     - Service name: `dbserver`
     - Set the default password to `ulfrids` (the default username is `postgres`)
     - Find a way to initialize the database with the `dump.sql` file provided in the `data` folder of this repository.
+    - Map the default postgres container port to port `5432` on the host.
     - Use an appropriate mechanism of persisting the data in the database after the container has been removed - map Postgres' data folder in the container to ./pgdata on the host (if possible, otherwise explain why you cannot map it and use a regular Docker volume).
 - [adminer](https://hub.docker.com/_/adminer)
     - Image: `adminer:latest`
@@ -18,10 +19,16 @@ Implement the following services in a docker-compose.yml:
 After your docker compose stack is up and running take a screenshot of it's web interface, with entered login credentials and database url.
 
 ![emptyui](assets/empty_adminer.png)
-# TODO: screenshot of used credentials to log in
+### TODO: screenshot of used credentials to log in
 <!-- ![filledui](assets/filled_adminer.png) -->
 
 The database should now have your data.
 ![dboverviewadminer](assets/adminer_view.png)
 
-### 2. SQL
+### 2. SQL and scikit-learn
+Implement the `task.ipynb` notebook.
+
+### 3. Make your work reproducible
+- requirements.txt
+- commands for running the docker stack
+TODO...
