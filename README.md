@@ -25,10 +25,13 @@ After your docker compose stack is up and running take a screenshot of it's web 
 The database should now have your data.
 ![dboverviewadminer](assets/adminer_view.png)
 
-### 2. SQL and scikit-learn
+### 2. SQL
 Implement the `task.ipynb` notebook.
 
-### 3. Make your work reproducible
+### 3. Predictive modeling
+
+### 4. Make your work reproducible
 - requirements.txt
+- seeding randomness
 - commands for running the docker stack
 TODO...
