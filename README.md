@@ -40,6 +40,9 @@ docker compose up
 Follow the instructions in `sql.ipynb` to implement the solutions. 
 
 Provide the commands to setup the python environment for running the notebook (requirements.txt or environment.yml)
+```bash
+conda env create -f environment.yml
+```
 
 #### The expected results of this phase are:
 - implemented everything required in `sql.ipynb`
