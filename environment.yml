@@ -1,0 +1,10 @@
+name: idsh2
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python=3.10
+  - ipykernel
+  - ipywidgets
+  - pandas
+  - psycopg2

@@ -8,7 +8,7 @@ Implement the following services in a docker-compose.yml:
     - Image: `postgres:17.2`
     - Service name: `dbserver`
     - Set the default password to `ulfrids` (the default username is `postgres`)
-    - Find a way to initialize the database with the `dump.sql` file provided in the `init` folder of this repository.
+    - Find a way to initialize the database with the `dump.sql` file provided in the `init` folder of this repository when the database container starts.
     - Map the default postgres container port to port `5432` on the host.
     - Use an appropriate mechanism of persisting the data in the database after the container has been removed - map Postgres' data folder in the container to ./pgdata on the host (if possible, otherwise explain why you cannot map it and use a regular Docker volume).
 - [adminer](https://hub.docker.com/_/adminer)
