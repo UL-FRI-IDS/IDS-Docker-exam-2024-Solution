@@ -28,8 +28,3 @@ rf.fit(X_train, y_train)
 y_pred = rf.predict(X_test)
 print("Random forest classifier")
 print(classification_report(y_test, y_pred, target_names=['loan_not_approved', 'loan_approved']))
-
-# save test features and predictions
-X_test['loan_approved'] = y_test
-X_test['loan_approved_prediction'] = y_pred
-X_test.to_csv('/model/data/test_predictions_rf.csv', index=False)
