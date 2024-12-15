@@ -2,7 +2,7 @@
 
 Your goal is to solve the following tasks:
 
-### 1. Setup the Docker compose stack
+### PART 1: Setup the Docker compose stack
 Implement the following services in a docker-compose.yml:
 - [postgres](https://hub.docker.com/_/postgres/)
     - Image: `postgres:17.2`
@@ -19,15 +19,17 @@ Implement the following services in a docker-compose.yml:
 After your docker compose stack is up and running take a screenshot of it's web interface, with entered login credentials and database url.
 
 <!-- ![emptyui](assets/empty_adminer.png) -->
-#### TODO: screenshot of used credentials to log in
+#### TODO: add here a screenshot of used credentials to log in using Adminer UI.
 ![filledui](assets/filled_adminer.png)
 
 The database should now have your data.
+
+#### TODO: add here a screenshot of Adminer UI where tables of the provided database can be visible.
 ![dboverviewadminer](assets/adminer_view.png)
 
-#### TODO: command(s) for running the docker compose stack:
+#### TODO: add here command(s) for running the docker compose stack in a detached mode:
 ```bash
-docker compose up
+docker compose up -d
 ```
 
 #### The expected results of this phase are:
@@ -36,11 +38,12 @@ docker compose up
 - a screenshot of the adminer web interface when logged-in, showing the two tables (`loan_applications` and `applicants`)
 - the command(s) needed to run the docker compose stack
 
-### 2. SQL
+### PART 2: SQL
 Follow the instructions in `sql.ipynb` to implement the solutions. 
 
 Provide the commands to setup the python environment for running the notebook (requirements.txt or environment.yml)
 ```bash
+TODO: write commands here
 conda env create -f environment.yml
 ```
 
@@ -49,7 +52,7 @@ conda env create -f environment.yml
 - `requirements.txt` or `environment.yml` specifying the python environment (libraries) needed for running the notebook.
 - saved `applicants_loan_applications.csv` in `predictive/data` folder
 
-### 3. Predictive modeling
+### PART 3: Predictive modeling
 Your goal is to predict if a bank should approve a loan application or not.
 
 Perform binary classification on the dataset `predictive/data/applicants_loan_applications.csv` you saved in the `sql.ipynb` notebook. The feature columns and target column are already specified in `predictive/model.py`.
@@ -62,7 +65,7 @@ Here's an example output of the classification report for both models:
 
 Now implement `predictive/Dockerfile` that specifes a custom container image (tag it `loanprediction`) based on `python:3.10-slim` that installs needed libraries and runs the `model.py` script from above on the provided data (use an appropriate docker mechanism to use the csv data file from the host).
 
-#### TODO commands for buidling and running the custom docker container
+#### TODO add here commands for buidling and running the custom docker container
 ```bash
 cd predictive
 docker build -t loanprediction .
